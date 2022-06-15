@@ -1,0 +1,9 @@
+[submodule "awesome-wm-widgets"]
+	path = awesome-wm-widgets
+	url = git@github.com:victormamede/awesome-wm-widgets.git
+[submodule "lib/bling"]
+	path = lib/bling
+	url = https://github.com/BlingCorp/bling.git
+[submodule "lib/rubato"]
+	path = lib/rubato
+	url = https://github.com/andOrlando/rubato.git

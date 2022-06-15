@@ -1,0 +1,6 @@
+require('config.init')
+require('config.bindings')
+require('config.screen')
+require('config.rules')
+require('config.signals')
+require('config.spawns')
