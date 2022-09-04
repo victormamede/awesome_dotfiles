@@ -7,3 +7,6 @@
 [submodule "lib/rubato"]
 	path = lib/rubato
 	url = https://github.com/andOrlando/rubato.git
+[submodule "lib/scratch"]
+	path = lib/scratch
+	url = https://github.com/notnew/awesome-scratch.git

@@ -2,7 +2,7 @@ local awful = require("awful")
 local gears = require("gears")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local menubar = require("menubar")
-local term_scratch = require("config.helpers.scratchpad")
+local scratch = require("lib.scratch.scratch")
 
 local brightness_step = 5
 local volume_step = 2
@@ -55,6 +55,8 @@ globalkeys = gears.table.join(
     { description = "focus the next screen", group = "screen" }),
   awful.key({ modkey, "Control" }, "k", function() awful.screen.focus_relative(-1) end,
     { description = "focus the previous screen", group = "screen" }),
+  awful.key({ modkey }, "m", function() awful.screen.focus_relative(1) end,
+    { description = "focus the next screen", group = "screen" }),
   awful.key({ modkey, }, "u", awful.client.urgent.jumpto,
     { description = "jump to urgent client", group = "client" }),
   awful.key({ modkey, }, "Tab",
@@ -72,7 +74,7 @@ globalkeys = gears.table.join(
     { description = "reload awesome", group = "awesome" }),
   awful.key({ modkey, "Shift" }, "q", awesome.quit,
     { description = "quit awesome", group = "awesome" }),
-  awful.key({ modkey }, "l", function() awful.spawn.with_shell("i3lock-fancy-dualmonitor -gp") end,
+  awful.key({ modkey, "Control" }, "l", function() awful.spawn.with_shell("xset s activate") end,
     { description = "lock", group = "awesome" }),
 
   awful.key({ modkey, }, "l", function() awful.tag.incmwfact(0.05) end,
@@ -87,8 +89,10 @@ globalkeys = gears.table.join(
     { description = "increase the number of columns", group = "layout" }),
   awful.key({ modkey, "Control" }, "l", function() awful.tag.incncol(-1, nil, true) end,
     { description = "decrease the number of columns", group = "layout" }),
-  awful.key({ modkey }, "w", function() term_scratch:toggle() end,
-    { description = "toggle scratchpad", group = "awesome" }),
+  awful.key({ modkey }, "e", function()
+    scratch.toggle("obsidian", { class = "obsidian" })
+  end,
+    { description = "toggle scratch", group = "awesome" }),
   awful.key({ "Mod1" }, "Shift_L", function() kbdcfg.switch() end, {
     description = "changes keyboard layout", group = "other" }),
   awful.key({}, "XF86AudioMute", function()
@@ -115,13 +119,19 @@ clientkeys = gears.table.join(
       c:raise()
     end,
     { description = "toggle fullscreen", group = "client" }),
+  awful.key({ modkey, }, "w",
+    function(c)
+      c.maximized = not c.maximized
+      c:raise()
+    end,
+    { description = "toggle fullscreen", group = "client" }),
   awful.key({ modkey, }, "q", function(c) c:kill() end,
     { description = "close", group = "client" }),
   awful.key({ modkey, }, "space", awful.client.floating.toggle,
     { description = "toggle floating", group = "client" }),
   awful.key({ modkey, "Shift" }, "Return", function(c) c:swap(awful.client.getmaster()) end,
     { description = "move to master", group = "client" }),
-  awful.key({ modkey }, "m", function(c)
+  awful.key({ modkey, "Shift" }, "m", function(c)
     local tag = move_to_screen(c, c.screen.index + 1)
     tag:view_only()
   end,

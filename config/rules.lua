@@ -33,10 +33,13 @@ awful.rules.rules = {
       "Tor Browser",
       "Wpa_gui",
       "veromix",
-      "xtightvncviewer" },
+      "feh",
+      "xtightvncviewer"
+    },
 
     name = {
       "Event Tester",
+      "Picture in Picture",
       "Android Emulator.*"
     },
 
@@ -45,7 +48,10 @@ awful.rules.rules = {
       "ConfigManager",
       "pop-up",
     }
-  }, properties = { floating = true } },
+  }, properties = {
+    floating = true,
+    placement = awful.placement.centered
+  } },
 
   {
     rule_any = { type = { "normal", "dialog" } },
@@ -63,5 +69,12 @@ awful.rules.rules = {
   {
     rule = { class = "Code" },
     properties = { tag = tags[3] }
+  },
+  {
+    rule = { class = "obsidian" },
+    properties = {
+      floating = true,
+      placement = awful.placement.centered
+    }
   },
 }

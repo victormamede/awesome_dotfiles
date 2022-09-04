@@ -2,6 +2,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local gears = require("gears")
 local wibox = require("wibox")
+local naughty = require("naughty")
 
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
@@ -23,9 +24,6 @@ local function set_wallpaper(s)
   end
 end
 
-local taglist_buttons = gears.table.join(
-  awful.button({}, 1, function(t) t:view_only() end)
-)
 local ip = ip_widget({ adapter = 'wlp3s0' })
 local battery = battery_widget({ display_notification = true })
 local brightness = brightness_widget({ base = 50 })
@@ -61,16 +59,33 @@ awful.screen.connect_for_each_screen(function(s)
 
   awful.tag(tags, s, layouts)
 
-  s.mywibox = awful.wibar({ position = "top", screen = s, opacity = 0.90 })
-
   s.tag_list = awful.widget.taglist {
-    screen  = s,
-    filter  = awful.widget.taglist.filter.all,
-    buttons = taglist_buttons
+    screen          = s,
+    filter          = awful.widget.taglist.filter.all,
+    widget_template = {
+      {
+        {
+          {
+            id     = 'text_role',
+            widget = wibox.widget.textbox,
+          },
+          layout  = wibox.layout.fixed.horizontal,
+          spacing = 4
+        },
+        left   = 12,
+        right  = 12,
+        widget = wibox.container.margin
+      },
+      id     = 'background_role',
+      widget = wibox.container.background,
+    },
   }
 
-
-
+  s.mywibox = awful.wibar({
+    position = "top",
+    screen = s,
+    opacity = 0.90,
+  })
   s.mywibox:setup {
     layout = wibox.layout.align.horizontal,
     expand = "none",
@@ -102,5 +117,49 @@ awful.screen.connect_for_each_screen(function(s)
       spotify,
       wibox.widget.systray(),
     },
+  }
+
+  s.taskbar = awful.wibar({ position = "bottom", screen = s, opacity = 0.90 })
+
+  s.task_list = awful.widget.tasklist {
+    screen          = s,
+    filter          = awful.widget.tasklist.filter.currenttags,
+    layout          = {
+      spacing = 4,
+      layout  = wibox.layout.flex.horizontal
+    },
+    widget_template = {
+      {
+        {
+          {
+            {
+              id     = 'icon_role',
+              widget = wibox.widget.imagebox,
+            },
+            margins = 2,
+            widget  = wibox.container.margin,
+          },
+          {
+            id     = 'text_role',
+            widget = wibox.widget.textbox,
+          },
+          layout = wibox.layout.fixed.horizontal,
+        },
+        left   = 10,
+        right  = 10,
+        widget = wibox.container.margin
+      },
+      id     = 'background_role',
+      widget = wibox.container.background,
+    },
+  }
+
+
+  s.taskbar:setup {
+    layout = wibox.layout.align.horizontal,
+    expand = "none",
+    nil,
+    s.task_list,
+    nil
   }
 end)

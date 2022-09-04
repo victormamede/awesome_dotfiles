@@ -13,22 +13,23 @@ local theme = {}
 
 theme.font = "Noto Sans,Font Awesome 6 Free Solid 10"
 
-theme.bg_normal   = "#0E1116"
-theme.bg_focus    = "#374A67"
-theme.bg_urgent   = "#ff0000"
-theme.bg_minimize = "#374A67"
+theme.bg_normal   = "#282828"
+theme.fg_normal   = "#dfbf8e"
+
+theme.bg_focus    = theme.fg_normal
+theme.bg_urgent   = "#f7768e"
+theme.bg_minimize = "#e78a4e"
 theme.bg_systray  = theme.bg_normal
 
-theme.fg_normal   = "#aaaaaa"
-theme.fg_focus    = "#ffffff"
-theme.fg_urgent   = "#ffffff"
-theme.fg_minimize = "#ffffff"
+theme.fg_focus    = theme.bg_normal
+theme.fg_urgent   = theme.bg_normal
+theme.fg_minimize = theme.bg_normal
 
 theme.useless_gap   = dpi(4)
 theme.border_width  = dpi(2)
-theme.border_normal = theme.bg_normal
-theme.border_focus  = "#9E7B9B"
-theme.border_marked = "#CB9CF2"
+theme.border_normal = "#504945"
+theme.border_focus  = theme.bg_focus
+theme.border_marked = theme.fg_normal
 
 theme.flash_focus_start_opacity = 0.95
 theme.flash_focus_step = 0.001
@@ -114,9 +115,11 @@ end
 local wallpapers = scanDir("/usr/share/backgrounds")
 math.randomseed(os.time())
 
-theme.wallpaper = function()
+function random_wallpaper()
     return wallpapers[math.random(1, #wallpapers)]
 end
+
+theme.wallpaper = "/usr/share/backgrounds/gruvbox.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh      = themes_path .. "default/layouts/fairhw.png"
