@@ -80,7 +80,6 @@ awful.screen.connect_for_each_screen(function(s)
       widget = wibox.container.background,
     },
   }
-
   s.mywibox = awful.wibar({
     position = "top",
     screen = s,
@@ -161,5 +160,15 @@ awful.screen.connect_for_each_screen(function(s)
     nil,
     s.task_list,
     nil
+  }
+
+  s.prompt_box = awful.popup {
+      widget = {
+        text = '',
+        widget = wibox.widget.textbox,
+      },
+      screen = s,
+      placement    = awful.placement.centered,
+      ontop = true,
   }
 end)

@@ -13,21 +13,21 @@ local theme = {}
 
 theme.font = "Noto Sans,Font Awesome 6 Free Solid 10"
 
-theme.bg_normal   = "#282828"
-theme.fg_normal   = "#dfbf8e"
+theme.bg_normal   = "#1c1e26"
+theme.fg_normal   = "#e0e0e0"
 
 theme.bg_focus    = theme.fg_normal
-theme.bg_urgent   = "#f7768e"
-theme.bg_minimize = "#e78a4e"
+theme.bg_urgent   = "#e95678"
+theme.bg_minimize = "#fab795"
 theme.bg_systray  = theme.bg_normal
 
 theme.fg_focus    = theme.bg_normal
 theme.fg_urgent   = theme.bg_normal
 theme.fg_minimize = theme.bg_normal
 
-theme.useless_gap   = dpi(4)
-theme.border_width  = dpi(2)
-theme.border_normal = "#504945"
+theme.useless_gap   = dpi(2)
+theme.border_width  = dpi(1)
+theme.border_normal = theme.bg_normal
 theme.border_focus  = theme.bg_focus
 theme.border_marked = theme.fg_normal
 
@@ -119,7 +119,7 @@ function random_wallpaper()
     return wallpapers[math.random(1, #wallpapers)]
 end
 
-theme.wallpaper = "/usr/share/backgrounds/gruvbox.png"
+theme.wallpaper = "/usr/share/backgrounds/berserk-2.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh      = themes_path .. "default/layouts/fairhw.png"

@@ -1,5 +1,7 @@
 local awful = require("awful")
+local wibox = require("wibox")
 local gears = require("gears")
+local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local menubar = require("menubar")
 local scratch = require("lib.scratch.scratch")
@@ -21,6 +23,19 @@ local function spawn_and_emit(command, signal)
     awesome.emit_signal(signal, stdout)
   end
   )
+end
+
+-- Create a shortcut function
+local function echo_test()
+    awful.prompt.run {
+        prompt       = '<b>Echo: </b>',
+        bg_cursor    = '#ff0000',
+        textbox      = mouse.screen.prompt_box.widget,
+        exe_callback = function(input)
+            if not input or #input == 0 then return end
+            naughty.notify{ text = 'The input was: '..input }
+        end
+    }
 end
 
 globalkeys = gears.table.join(
@@ -70,6 +85,8 @@ globalkeys = gears.table.join(
 
   awful.key({ modkey, }, "Return", function() awful.spawn(terminal) end,
     { description = "open a terminal", group = "launcher" }),
+  awful.key({ modkey }, "r", echo_test,
+    {description = "Echo a string", group = "custom"}),
   awful.key({ modkey, "Shift" }, "r", awesome.restart,
     { description = "reload awesome", group = "awesome" }),
   awful.key({ modkey, "Shift" }, "q", awesome.quit,

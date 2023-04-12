@@ -63,11 +63,11 @@ awful.rules.rules = {
     properties = { tag = tags[1] }
   },
   {
-    rule = { class = "Opera" },
+    rule_any = { class = { "Opera", "Brave-browser" } },
     properties = { tag = tags[2] }
   },
   {
-    rule = { class = "Code" },
+    rule_any = { class = { "Code", "Emacs" } },
     properties = { tag = tags[3] }
   },
   {
